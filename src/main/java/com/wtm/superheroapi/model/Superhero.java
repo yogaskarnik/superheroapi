@@ -11,8 +11,7 @@ public class Superhero {
     private Long id;
     private String superHeroName;
 
-    public Superhero(Long id, String superHeroName) {
-        this.id = id;
+    public Superhero(String superHeroName) {
         this.superHeroName = superHeroName;
     }
 

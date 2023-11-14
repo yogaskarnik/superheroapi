@@ -25,8 +25,8 @@ public class SuperheroServiceTest {
     @Test
     public void whenFindAll_ThenSuperherosShouldBeAvailable(){
         List<Superhero> expectedSuperheroes = Arrays.asList(
-                new Superhero(1l,"Batman"),
-                new Superhero(2l,"Superman"));
+                new Superhero("Batman"),
+                new Superhero("Superman"));
 
         Mockito.when(superheroRepository.findAll()).thenReturn(expectedSuperheroes);
 
@@ -35,4 +35,22 @@ public class SuperheroServiceTest {
         assertThat(foundSuperheros).isEqualTo(expectedSuperheroes);
 
     }
+
+    @Test
+    public void whenCreateSuperhero_thenSuperheroShouldBeCreated(){
+        Superhero superhero = new Superhero("Batman");
+        Mockito.when(superheroRepository.save(superhero)).thenReturn(superhero);
+
+        Superhero superheroCreated = superheroService.createSuperhero(superhero);
+
+        assertThat(superheroCreated).isNotNull();
+        assertThat(superheroCreated.getSuperHeroName()).isEqualTo(superhero.getSuperHeroName());
+    }
+
+    @Test
+    public void whenFindSuperheroById_thenSuperheroShouldBeFound(){
+        Mockito.when(superheroRepository.findById(1l)).thenReturn()
+
+    }
+
 }

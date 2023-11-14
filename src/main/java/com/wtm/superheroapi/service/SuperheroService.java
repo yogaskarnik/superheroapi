@@ -9,14 +9,18 @@ import java.util.List;
 
 @Service
 public class SuperheroService {
-    private final SuperheroRepository superherRepository;
+    private final SuperheroRepository superheroRepository;
 
     @Autowired
     public SuperheroService(SuperheroRepository superheroRepository){
-        this.superherRepository = superheroRepository;
+        this.superheroRepository = superheroRepository;
     }
 
     public List<Superhero> findAll(){
-        return superherRepository.findAll();
+        return superheroRepository.findAll();
+    }
+
+    public Superhero createSuperhero(Superhero superhero){
+        return superheroRepository.save(superhero);
     }
 }
