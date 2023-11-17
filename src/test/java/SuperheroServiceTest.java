@@ -87,4 +87,12 @@ public class SuperheroServiceTest {
         assertThat(updated.get().getSuperHeroName()).isEqualTo(updatedSuperhero.getSuperHeroName());
     }
 
+    @Test
+    public void whenDeleteSuperhero_thenSuperheroShouldBeDeleted() {
+        Long id = 1L;
+        Mockito.doNothing().when(superheroRepository).deleteById(id);
+        superheroService.deleteSuperhero(id);
+        Mockito.verify(superheroRepository, Mockito.times(1)).deleteById(id);
+    }
+
 }
