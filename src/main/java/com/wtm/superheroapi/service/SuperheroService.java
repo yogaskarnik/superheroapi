@@ -37,4 +37,9 @@ public class SuperheroService {
                     return superheroRepository.save(superhero);
                 });
     }
+
+    public void deleteSuperhero(Long id) {
+        superheroRepository.deleteById(id);
+    }
+
 }

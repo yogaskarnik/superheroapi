@@ -31,5 +31,11 @@ public class SuperheroController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Superhero> deleteSuperhero(@PathVariable Long id) {
+        superheroService.deleteSuperhero(id);
+        return ResponseEntity.ok().build();
+    }
+
 
 }
