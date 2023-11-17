@@ -81,7 +81,7 @@ public class SuperheroServiceTest {
         Mockito.when(superheroRepository.findById(id)).thenReturn(Optional.of(existingSuperhero));
         Mockito.when(superheroRepository.save(existingSuperhero)).thenReturn(updatedSuperhero);
 
-        Optional<Superhero> updated = superheroService.updateSuperhero(updatedSuperhero);
+        Optional<Superhero> updated = superheroService.updateSuperhero(id, updatedSuperhero);
 
         assertThat(updated).isPresent();
         assertThat(updated.get().getSuperHeroName()).isEqualTo(updatedSuperhero.getSuperHeroName());
