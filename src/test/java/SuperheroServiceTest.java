@@ -10,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,7 +24,7 @@ public class SuperheroServiceTest {
     private SuperheroService superheroService;
 
     @Test
-    public void whenFindAll_ThenSuperherosShouldBeAvailable(){
+    public void whenFindAll_ThenSuperherosShouldBeAvailable() {
         List<Superhero> expectedSuperheroes = Arrays.asList(
                 new Superhero("Batman"),
                 new Superhero("Superman"));
@@ -37,7 +38,7 @@ public class SuperheroServiceTest {
     }
 
     @Test
-    public void whenCreateSuperhero_thenSuperheroShouldBeCreated(){
+    public void whenCreateSuperhero_thenSuperheroShouldBeCreated() {
         Superhero superhero = new Superhero("Batman");
         Mockito.when(superheroRepository.save(superhero)).thenReturn(superhero);
 
@@ -48,9 +49,25 @@ public class SuperheroServiceTest {
     }
 
     @Test
-    public void whenFindSuperheroById_thenSuperheroShouldBeFound(){
-        Mockito.when(superheroRepository.findById(1l)).thenReturn()
+    public void whenFindSuperheroById_thenSuperheroShouldBeFound() {
+        Long id = 1L;
+        Superhero superhero = new Superhero("Batman");
+        Mockito.when(superheroRepository.findById(id)).thenReturn(Optional.of(superhero));
 
+        Optional<Superhero> found = superheroService.findById(id);
+
+        assertThat(found).isPresent();
+        assertThat(found.get().getSuperHeroName()).isEqualTo(superhero.getSuperHeroName());
+    }
+
+    @Test
+    public void whenFindSuperheroById_thenSuperheroShouldNotBeFound() {
+        Long id = 2L;
+        Mockito.when(superheroRepository.findById(id)).thenReturn(Optional.empty());
+
+        Optional<Superhero> found = superheroService.findById(id);
+
+        assertThat(found).isNotPresent();
     }
 
 }

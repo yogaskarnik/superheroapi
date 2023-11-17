@@ -1,15 +1,20 @@
 package com.wtm.superheroapi.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "superhero")
 public class Superhero {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "super_hero_name")
     private String superHeroName;
+
+    public Superhero() {
+    }
 
     public Superhero(String superHeroName) {
         this.superHeroName = superHeroName;
