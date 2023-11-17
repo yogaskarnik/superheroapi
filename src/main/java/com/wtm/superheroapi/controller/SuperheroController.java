@@ -4,10 +4,7 @@ import com.wtm.superheroapi.model.Superhero;
 import com.wtm.superheroapi.service.SuperheroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/superheros")
@@ -23,6 +20,13 @@ public class SuperheroController {
     @GetMapping("/{id}")
     public ResponseEntity<Superhero> getSuperheroById(@PathVariable Long id) {
         return superheroService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<Superhero> updateSuperhero(@PathVariable Long id, @RequestBody Superhero superhero) {
+        return superheroService.updateSuperhero(id, superhero)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

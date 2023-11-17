@@ -5,6 +5,7 @@ import com.wtm.superheroapi.repository.SuperheroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,5 +28,13 @@ public class SuperheroService {
 
     public Optional<Superhero> findById(Long id) {
         return superheroRepository.findById(id);
+    }
+
+    public Optional<Superhero> updateSuperhero(Long id, Superhero updatedSuperhero) {
+        return superheroRepository.findById(id)
+                .map(superhero -> {
+                    superhero.setSuperHeroName(updatedSuperhero.getSuperHeroName());
+                    return superheroRepository.save(superhero);
+                });
     }
 }
