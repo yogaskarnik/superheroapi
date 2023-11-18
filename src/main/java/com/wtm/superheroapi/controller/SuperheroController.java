@@ -46,5 +46,11 @@ public class SuperheroController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<Superhero>> searchByName(@RequestParam String superHeroname) {
+        List<Superhero> superheroes = superheroService.searchByName(superHeroname);
+        return ResponseEntity.ok(superheroes);
+    }
+
 
 }

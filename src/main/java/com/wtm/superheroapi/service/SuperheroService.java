@@ -41,4 +41,7 @@ public class SuperheroService {
         superheroRepository.deleteById(id);
     }
 
+    public List<Superhero> searchByName(String searchTerm) {
+        return superheroRepository.findBySuperHeronameContaining(searchTerm);
+    }
 }
