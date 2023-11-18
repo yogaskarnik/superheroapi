@@ -62,6 +62,13 @@ public class SuperheroControllerIntegrationTest {
     }
 
     @Test
+    public void whenGetNonExistingSuperheroById_thenStatus404() throws Exception {
+        long nonExistingId = 999L;
+        mockMvc.perform(get("/superheros/" + nonExistingId))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     public void whenUpdateSuperhero_thenSuperheroUpdated() throws Exception {
         Superhero updatedSuperHero = new Superhero("Amazing Spiderman");
         String updatedSuperheroJSON = new ObjectMapper().writeValueAsString(updatedSuperHero);

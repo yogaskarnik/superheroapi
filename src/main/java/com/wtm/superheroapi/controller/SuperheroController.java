@@ -2,6 +2,7 @@ package com.wtm.superheroapi.controller;
 
 import com.wtm.superheroapi.model.Superhero;
 import com.wtm.superheroapi.service.SuperheroService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +28,9 @@ public class SuperheroController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Superhero> getSuperheroById(@PathVariable Long id) {
-        return superheroService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        Superhero superhero = superheroService.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Superhero not found with id " + id));
+        return ResponseEntity.ok(superhero);
     }
 
     @PostMapping("/{id}")
