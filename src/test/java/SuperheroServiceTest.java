@@ -1,7 +1,6 @@
 import com.wtm.superheroapi.model.Superhero;
 import com.wtm.superheroapi.repository.SuperheroRepository;
 import com.wtm.superheroapi.service.SuperheroService;
-import net.bytebuddy.implementation.bind.annotation.Super;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,6 +22,7 @@ public class SuperheroServiceTest {
 
     @InjectMocks
     private SuperheroService superheroService;
+
 
     @Test
     public void whenFindAll_ThenSuperherosShouldBeAvailable() {
@@ -46,7 +46,7 @@ public class SuperheroServiceTest {
         Superhero superheroCreated = superheroService.createSuperhero(superhero);
 
         assertThat(superheroCreated).isNotNull();
-        assertThat(superheroCreated.getSuperHeroName()).isEqualTo(superhero.getSuperHeroName());
+        assertThat(superheroCreated.getSuperHeroname()).isEqualTo(superhero.getSuperHeroname());
     }
 
     @Test
@@ -58,7 +58,7 @@ public class SuperheroServiceTest {
         Optional<Superhero> found = superheroService.findById(id);
 
         assertThat(found).isPresent();
-        assertThat(found.get().getSuperHeroName()).isEqualTo(superhero.getSuperHeroName());
+        assertThat(found.get().getSuperHeroname()).isEqualTo(superhero.getSuperHeroname());
     }
 
     @Test
@@ -84,7 +84,7 @@ public class SuperheroServiceTest {
         Optional<Superhero> updated = superheroService.updateSuperhero(id, updatedSuperhero);
 
         assertThat(updated).isPresent();
-        assertThat(updated.get().getSuperHeroName()).isEqualTo(updatedSuperhero.getSuperHeroName());
+        assertThat(updated.get().getSuperHeroname()).isEqualTo(updatedSuperhero.getSuperHeroname());
     }
 
     @Test

@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -47,10 +48,17 @@ public class SuperheroControllerIntegrationTest {
     }
 
     @Test
+    public void whenGetAllSuperheros_thenStatus200() throws Exception {
+        mockMvc.perform(get("/superheros"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
+    }
+
+    @Test
     public void whenGetSuperheroById_thenStatus200() throws Exception {
         mockMvc.perform(get("/superheros/" + ironmanId))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.superHeroName").value("Ironman"));
+                .andExpect(jsonPath("$.superHeroname").value("Ironman"));
     }
 
     @Test
@@ -62,7 +70,7 @@ public class SuperheroControllerIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(updatedSuperheroJSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.superHeroName").value("Amazing Spiderman"));
+                .andExpect(jsonPath("$.superHeroname").value("Amazing Spiderman"));
     }
 
     @Test

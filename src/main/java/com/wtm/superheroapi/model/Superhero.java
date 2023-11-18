@@ -11,13 +11,13 @@ public class Superhero {
     private Long id;
 
     @Column(name = "super_hero_name")
-    private String superHeroName;
+    private String superHeroname;
 
     public Superhero() {
     }
 
     public Superhero(String superHeroName) {
-        this.superHeroName = superHeroName;
+        this.superHeroname = superHeroName;
     }
 
     public Long getId() {
@@ -28,11 +28,11 @@ public class Superhero {
         this.id = id;
     }
 
-    public String getSuperHeroName() {
-        return superHeroName;
+    public String getSuperHeroname() {
+        return superHeroname;
     }
 
-    public void setSuperHeroName(String superHeroName) {
-        this.superHeroName = superHeroName;
+    public void setSuperHeroname(String superHeroname) {
+        this.superHeroname = superHeroname;
     }
 }

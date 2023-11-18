@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/superheros")
 public class SuperheroController {
@@ -15,6 +17,12 @@ public class SuperheroController {
     @Autowired
     public SuperheroController(SuperheroService superheroService) {
         this.superheroService = superheroService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Superhero>> getAll() {
+        List<Superhero> superheros = superheroService.findAll();
+        return ResponseEntity.ok(superheros);
     }
 
     @GetMapping("/{id}")
