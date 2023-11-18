@@ -1,5 +1,6 @@
 package com.wtm.superheroapi.service;
 
+import com.wtm.superheroapi.logging.LogExecutionTime;
 import com.wtm.superheroapi.model.Superhero;
 import com.wtm.superheroapi.repository.SuperheroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class SuperheroService {
         this.superheroRepository = superheroRepository;
     }
 
+    @LogExecutionTime
     public List<Superhero> findAll() {
         return superheroRepository.findAll();
     }
@@ -25,6 +27,7 @@ public class SuperheroService {
         return superheroRepository.save(superhero);
     }
 
+    @LogExecutionTime
     public Optional<Superhero> findById(Long id) {
         return superheroRepository.findById(id);
     }
@@ -41,6 +44,7 @@ public class SuperheroService {
         superheroRepository.deleteById(id);
     }
 
+    @LogExecutionTime
     public List<Superhero> searchByName(String searchTerm) {
         return superheroRepository.findBySuperHeronameContaining(searchTerm);
     }
