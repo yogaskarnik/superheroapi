@@ -3,7 +3,6 @@ package com.wtm.superheroapi.test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wtm.superheroapi.model.Superhero;
 import com.wtm.superheroapi.repository.SuperheroRepository;
-import net.bytebuddy.implementation.bind.annotation.Super;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,8 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -85,5 +86,18 @@ public class SuperheroControllerIntegrationTest {
         mockMvc.perform(delete("/superheros/" + ironmanId))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void whenSearchedBySuperheroName_thenMatchingSuperherosShouldBeReturned() throws Exception {
+        String searchTerm = "man";
+        mockMvc.perform(get("/superheros/search").param("superHeroname", searchTerm))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].superHeroname", is("Spiderman")))
+                .andExpect(jsonPath("$[1].superHeroname", is("Ironman")));
+
+    }
+
 
 }
