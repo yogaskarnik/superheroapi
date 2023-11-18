@@ -95,4 +95,20 @@ public class SuperheroServiceTest {
         Mockito.verify(superheroRepository, Mockito.times(1)).deleteById(id);
     }
 
+    @Test
+    public void whenSearchByName_thenMatchingSuperheroShouldBeReturned() {
+        String searchTerm = "man";
+        List<Superhero> allSuperheros = Arrays.asList(
+                new Superhero("Batman"),
+                new Superhero("Superman"));
+
+        Mockito.when(superheroRepository.findBySuperHeronameContaining(searchTerm))
+                .thenReturn(allSuperheros);
+
+        List<Superhero> result = superheroService.searchByName(searchTerm);
+
+        assertThat(result).hasSize(2);
+        assertThat(result).containsAll(allSuperheros);
+    }
+
 }
