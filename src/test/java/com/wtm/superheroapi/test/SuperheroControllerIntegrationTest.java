@@ -2,6 +2,7 @@ package com.wtm.superheroapi.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wtm.superheroapi.model.Superhero;
+import com.wtm.superheroapi.model.User;
 import com.wtm.superheroapi.repository.SuperheroRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -98,6 +99,4 @@ public class SuperheroControllerIntegrationTest {
                 .andExpect(jsonPath("$[1].superHeroname", is("Ironman")));
 
     }
-
-
 }
